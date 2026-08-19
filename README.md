@@ -1,0 +1,1 @@
+# mindshare-graphql-study

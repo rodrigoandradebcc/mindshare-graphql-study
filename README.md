@@ -30,7 +30,7 @@ Usuários autenticados podem publicar ideias, consultar detalhes, comentar e vot
 
 ## Arquitetura
 
-O repositório contém dois aplicativos independentes. O frontend envia operações ao endpoint `/graphql` usando o Apollo Client. Um link de autenticação acrescenta o token JWT ao cabeçalho `Authorization`. No backend, o Apollo Server integra o schema gerado pelo TypeGraphQL ao Express; resolvers delegam regras aos serviços, que acessam o SQLite por meio do Prisma.
+O repositório contém dois aplicativos independentes. O frontend envia operações ao endpoint `/graphql` usando o Apollo Client. Um link de autenticação acrescenta o token JWT ao cabeçalho `Authorization`, enquanto um link de erro trata globalmente falhas de autenticação. No backend, o Apollo Server integra o schema gerado pelo TypeGraphQL ao Express; resolvers delegam regras aos serviços, que acessam o SQLite por meio do Prisma.
 
 ```mermaid
 flowchart LR
@@ -157,6 +157,8 @@ Authorization: Bearer <token>
 ```
 
 O refresh token já é emitido pela API, mas ainda não existe um fluxo de renovação automática implementado no frontend.
+
+Quando uma operação protegida retorna o código GraphQL `UNAUTHENTICATED`, o `ErrorLink` do Apollo Client encerra a sessão, limpa os dados de autenticação e o cache, e redireciona o usuário para o login. A aplicação também exibe a mensagem “Sua sessão expirou. Entre novamente.” uma única vez, mesmo quando várias operações falham simultaneamente. Erros de rede e outros erros GraphQL não provocam logout.
 
 ## API GraphQL
 

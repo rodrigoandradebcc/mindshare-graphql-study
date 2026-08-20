@@ -17,3 +17,20 @@ export const CREATE_IDEA = gql`
     }
   }
 `;
+
+export const UPDATE_IDEA = gql`
+  mutation UpdateIdea($id: String!, $data: UpdateIdeaInput!) {
+    updateIdea(id: $id, data: $data) {
+      id
+      title
+      description
+      updatedAt
+    }
+  }
+`;
+
+export const DELETE_IDEA = gql`
+  mutation DeleteIdea($id: String!) {
+    deleteIdea(id: $id)
+  }
+`;

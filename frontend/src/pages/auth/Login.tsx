@@ -42,69 +42,96 @@ export function Login() {
   };
 
   return (
-    <div className="flex flex-col min-h-[calc(100vh-4rem)] items-center justify-center gap-6">
-      <img src={logo} className="w-64 h-22" />
+    <div className="flex min-h-screen flex-col items-center pt-[clamp(46px,4.48vw,74px)]">
+      <img
+        src={logo}
+        alt="MindShare — Ideias colaborativas"
+        className="mb-[clamp(17px,1.52vw,25px)] h-auto w-[clamp(162px,15.5vw,256px)]"
+      />
 
-      <Card className="w-full max-w-md rounded-xl">
-        <CardHeader>
-          <CardTitle className="text-2xl font-bold">
+      <Card className="w-[min(100%,clamp(295px,28.2vw,465px))] gap-0 rounded-xl py-0 ring-0 shadow-none">
+        <CardHeader className="gap-1 px-[clamp(21px,2.05vw,34px)] pt-[clamp(21px,2.05vw,34px)]">
+          <CardTitle className="text-[clamp(16px,1.45vw,24px)] leading-tight font-bold">
             Acesse a plataforma
           </CardTitle>
 
-          <CardDescription>
+          <CardDescription className="text-[clamp(10px,0.91vw,15px)] leading-normal">
             Entre usando seu e-mail e senha cadastrados
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <Label htmlFor="email">Email</Label>
+        <CardContent className="mt-[clamp(24px,2.35vw,39px)] px-[clamp(21px,2.05vw,34px)] pb-[clamp(21px,2.05vw,34px)]">
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-[clamp(13px,1.15vw,19px)]"
+          >
+            <div className="space-y-[clamp(4px,0.35vw,6px)]">
+              <Label
+                htmlFor="email"
+                className="text-[clamp(11px,1.03vw,17px)]"
+              >
+                E-mail
+              </Label>
 
               <Input
                 id="email"
                 type="email"
-                placeholder="seu@email.com"
+                placeholder="exemplo@mail.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                className="h-[clamp(32px,3.1vw,51px)] rounded-[clamp(7px,0.65vw,11px)] px-[clamp(12px,1.15vw,19px)] text-[clamp(11px,1.03vw,17px)]"
               />
             </div>
-            <div>
-              <Label htmlFor="password">Senha</Label>
+            <div className="space-y-[clamp(4px,0.35vw,6px)]">
+              <Label
+                htmlFor="password"
+                className="text-[clamp(11px,1.03vw,17px)]"
+              >
+                Senha
+              </Label>
 
               <Input
                 id="password"
                 type="password"
-                placeholder="********"
+                placeholder="Digite sua senha"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                className="h-[clamp(32px,3.1vw,51px)] rounded-[clamp(7px,0.65vw,11px)] px-[clamp(12px,1.15vw,19px)] text-[clamp(11px,1.03vw,17px)]"
               />
             </div>
-            <Button type="submit" className="w-full" disabled={loading}>
+            <Button
+              type="submit"
+              className="mt-px h-[clamp(32px,2.96vw,49px)] w-full text-[clamp(11px,1.03vw,17px)]"
+              disabled={loading}
+            >
               Entrar
             </Button>
           </form>
         </CardContent>
-        <Card className="w-full max-w-md rounded-xl">
-          <CardHeader>
-            <CardTitle className="text-2xl font-bold">
-              Ainda não tem uma conta?
-            </CardTitle>
+      </Card>
 
-            <CardDescription>Cadastre-se agora mesmo</CardDescription>
-          </CardHeader>
+      <Card className="mt-[clamp(9px,0.85vw,14px)] w-[min(100%,clamp(295px,28.2vw,465px))] gap-0 rounded-xl py-0 ring-0 shadow-none">
+        <CardHeader className="gap-1 px-[clamp(21px,2.05vw,34px)] pt-[clamp(21px,2.05vw,34px)]">
+          <CardTitle className="text-[clamp(13px,1.2vw,20px)] font-medium">
+            Ainda não tem uma conta?
+          </CardTitle>
 
-          <CardContent>
-            <Button
-              variant="outline"
-              className="w-full"
-              render={<Link to="/signup" />}
-            >
-              Criar conta
-            </Button>
-          </CardContent>
-        </Card>
+          <CardDescription className="text-[clamp(10px,0.91vw,15px)]">
+            Cadastre agora mesmo
+          </CardDescription>
+        </CardHeader>
+
+        <CardContent className="px-[clamp(21px,2.05vw,34px)] pt-[clamp(16px,1.55vw,26px)] pb-[clamp(21px,2.05vw,34px)]">
+          <Button
+            variant="outline"
+            className="h-[clamp(32px,3.1vw,51px)] w-full text-[clamp(11px,1.03vw,17px)]"
+            nativeButton={false}
+            render={<Link to="/signup" />}
+          >
+            Criar conta
+          </Button>
+        </CardContent>
       </Card>
     </div>
   );

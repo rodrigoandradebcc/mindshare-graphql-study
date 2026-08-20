@@ -1,5 +1,6 @@
 import { prismaClient } from "../../prisma/prisma";
 import { CreateIdeaInput, UpdateIdeaInput } from "../dtos/input/idea.input";
+import { GraphQLError } from "graphql";
 
 export class IdeaService {
   async createIdea(data: CreateIdeaInput, authorId: string) {
@@ -28,7 +29,7 @@ export class IdeaService {
     return idea;
   }
 
-  async deleteIdea(id: string) {
+  async deleteIdea(id: string, userId: string) {
     const idea = await prismaClient.idea.findUnique({
       where: {
         id,
@@ -36,6 +37,11 @@ export class IdeaService {
     });
 
     if (!idea) throw new Error("Ideia não encontrada");
+    if (idea.authorId !== userId) {
+      throw new GraphQLError("Você não pode excluir esta ideia", {
+        extensions: { code: "FORBIDDEN" },
+      });
+    }
 
     return prismaClient.idea.delete({
       where: {
@@ -44,7 +50,7 @@ export class IdeaService {
     });
   }
 
-  async updateIdea(id: string, data: UpdateIdeaInput) {
+  async updateIdea(id: string, data: UpdateIdeaInput, userId: string) {
     const idea = await prismaClient.idea.findUnique({
       where: {
         id,
@@ -52,6 +58,11 @@ export class IdeaService {
     });
 
     if (!idea) throw new Error("Idea não encontrada");
+    if (idea.authorId !== userId) {
+      throw new GraphQLError("Você não pode editar esta ideia", {
+        extensions: { code: "FORBIDDEN" },
+      });
+    }
 
     return prismaClient.idea.update({
       where: {

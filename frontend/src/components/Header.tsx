@@ -17,55 +17,61 @@ export function Header() {
     navigate("/login");
   };
 
+  if (!isAuthenticated) return null;
+
   return (
-    <div className="w-full px-16 pt-6">
-      {isAuthenticated && (
-        <div className="flex justify-between w-full">
-          <div className="min-w-48">
-            <img src={logoIcon} />
-          </div>
-          <div className="flex items-center gap-4">
-            <Link to="/">
-              <Button
-                size="sm"
-                className="gap-2"
-                variant={isIdeasPage ? "default" : "ghost"}
-              >
-                <Lightbulb className="h-4 w-4" />
-                Ideais
-              </Button>
-            </Link>
-            <Link to="/members">
-              <Button
-                size="sm"
-                className="gap-2"
-                variant={isMembersPage ? "default" : "ghost"}
-              >
-                <Users className="h-4 w-4" />
-                Membros
-              </Button>
-            </Link>
-          </div>
-          <div className="flex items-center gap-2">
-            <div className="flex items-center gap-2">
-              <Avatar>
-                <AvatarFallback className="bg-zinc-950 text-primary-foreground">
-                  {user?.name?.charAt(0)}
-                </AvatarFallback>
-              </Avatar>
-              <div className="flex flex-col">
-                <span className="text-sm font-medium">{user?.name}</span>
-                <span className="text-xs text-muted-foreground">
-                  {user?.email}
-                </span>
-              </div>
-            </div>
-            <Button variant="ghost" size="icon" onClick={handleLogout}>
-              <LogOut className="w-5 h-5" />
-            </Button>
+    <header className="relative flex h-[82px] w-full items-center justify-between px-4 sm:px-8">
+      <img src={logoIcon} alt="MindShare" className="size-10" />
+
+      <nav
+        aria-label="Navegação principal"
+        className="absolute left-1/2 flex -translate-x-1/2 items-center gap-2"
+      >
+        <Button
+          size="sm"
+          className="gap-2"
+          variant={isIdeasPage ? "default" : "ghost"}
+          nativeButton={false}
+          render={<Link to="/" />}
+        >
+          <Lightbulb className="h-4 w-4" />
+          Ideais
+        </Button>
+        <Button
+          size="sm"
+          className="gap-2"
+          variant={isMembersPage ? "default" : "ghost"}
+          nativeButton={false}
+          render={<Link to="/members" />}
+        >
+          <Users className="h-4 w-4" />
+          Usuários
+        </Button>
+      </nav>
+
+      <div className="flex items-center gap-3">
+        <div className="hidden items-center gap-2.5 sm:flex">
+          <Avatar className="size-8">
+            <AvatarFallback className="bg-zinc-950 text-primary-foreground">
+              {user?.name?.charAt(0)}
+            </AvatarFallback>
+          </Avatar>
+          <div className="flex flex-col">
+            <span className="text-xs font-medium">{user?.name}</span>
+            <span className="text-[10px] text-muted-foreground">
+              {user?.email}
+            </span>
           </div>
         </div>
-      )}
-    </div>
+        <Button
+          aria-label="Sair"
+          variant="ghost"
+          size="icon-sm"
+          onClick={handleLogout}
+        >
+          <LogOut className="size-4" />
+        </Button>
+      </div>
+    </header>
   );
 }

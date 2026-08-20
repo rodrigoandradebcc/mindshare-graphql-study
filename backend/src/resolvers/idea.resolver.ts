@@ -40,13 +40,17 @@ export class IdeaResolver {
   async updateIdea(
     @Arg("data", () => UpdateIdeaInput) data: UpdateIdeaInput,
     @Arg("id", () => String) id: string,
+    @GqlUser() user: User,
   ): Promise<IdeaModel> {
-    return this.ideaService.updateIdea(id, data);
+    return this.ideaService.updateIdea(id, data, user.id);
   }
 
   @Mutation(() => Boolean)
-  async deleteIdea(@Arg("id", () => String) id: string): Promise<boolean> {
-    await this.ideaService.deleteIdea(id);
+  async deleteIdea(
+    @Arg("id", () => String) id: string,
+    @GqlUser() user: User,
+  ): Promise<boolean> {
+    await this.ideaService.deleteIdea(id, user.id);
     return true;
   }
 

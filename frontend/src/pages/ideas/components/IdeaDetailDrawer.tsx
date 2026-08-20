@@ -4,7 +4,7 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer";
 import { useLazyQuery, useMutation } from "@apollo/client/react";
-import { GET_IDEA } from "@/lib/graphql/queries/ideas";
+import { GET_IDEA } from "@/lib/graphql/queries/Ideas";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { X } from "lucide-react";

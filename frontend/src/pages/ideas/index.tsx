@@ -5,7 +5,7 @@ import { Plus } from "lucide-react";
 import { CreateIdeaDialog } from "./components/CreateIdeaDialog";
 import { useState } from "react";
 import { useQuery } from "@apollo/client/react";
-import { LIST_IDEAS } from "@/lib/graphql/queries/ideas";
+import { LIST_IDEAS } from "@/lib/graphql/queries/Ideas";
 import { IdeaCard } from "./components/IdeaCard";
 import { IdeaDetailDrawer } from "./components/IdeaDetailDrawer";
 
